@@ -891,6 +891,10 @@ static int InitGraphicsDevice(void)
 
     // Get an appropriate EGL framebuffer configuration
     eglChooseConfig(platform.device, framebufferAttribs, &platform.config, 1, &numConfigs);
+    if (numConfigs == 0) {
+        TRACELOG(LOG_WARNING, "DISPLAY: Failed to find matching EGL config");
+      return -1;
+    }
 
     // Set rendering API
     eglBindAPI(EGL_OPENGL_ES_API);
